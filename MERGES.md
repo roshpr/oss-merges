@@ -14,32 +14,6 @@ Living record of **merged** upstream contributions. Newest first.
 
 ---
 
-**Summary**  
-Added an **optional** `livenessProbe` for the Argo CD application-controller Deployment (dynamic cluster distribution) and StatefulSet. Probe is **off by default** so existing installs are unchanged — matching upstream’s decision to remove a hard-coded controller liveness probe because restarting an overloaded controller can be worse than leaving it up ([argoproj/argo-cd#9557](https://github.com/argoproj/argo-cd/pull/9557)). Operators opt in via:
-
-```yaml
-controller:
-  livenessProbe:
-    enabled: true
-```
-
-**Review arc**  
-- mkilchhofer: required a values/README warning explaining why the probe is default-off.
-- - jmeridth: agreed; also wanted looser `timeoutSeconds` and a rebase onto chart `10.8.0`.
-  - - Follow-up from roshpr addressed warning + rebase + timeout; marked ready; merged by mbevc1.
-   
-    - **Owned by**
-    - Argo Contrib (Chief of Staff coordinated). Cloud-agent assisted implementation on fork.
-   
-    - **Notes / lessons**
-    - - Keep AI-assisted PRs **draft** until human review (Fabrizio / checklist).
-      - - Document upstream rationale in values when a default looks “surprising.”
-        - - Use the OSS contribution checklist for labels, docs, DCO, draft, CI.
-         
-          - ---
-
-          <!-- Newest entries go above this line (after ## Entries) and also in the Index table -->
-
 ## Entries
 
 ### argoproj/argo-helm#4051 — application-controller livenessProbe
@@ -54,3 +28,28 @@ controller:
 | **Base / head** | `main` ← `cursor/application-controller-liveness-probe-e424` (`17d94d69`) |
 | **Diff** | 1 commit · +54 / −3 · 5 files |
 | **Status at merge** | CI green; re-approvals after rebase from mkilchhofer + mbevc1 |
+
+**Summary**  Added an **optional** `livenessProbe` for the Argo CD application-controller Deployment (dynamic cluster distribution) and StatefulSet. Probe is **off by default** so existing installs are unchanged — matching upstream’s decision to remove a hard-coded controller liveness probe because restarting an overloaded controller can be worse than leaving it up ([argoproj/argo-cd#9557](https://github.com/argoproj/argo-cd/pull/9557)). Operators opt in via:
+
+```yaml
+controller:
+  livenessProbe:
+    enabled: true
+```
+
+**Review arc**  
+- mkilchhofer: required a values/README warning explaining why the probe is default-off.  
+- jmeridth: agreed; also wanted looser `timeoutSeconds` and a rebase onto chart `10.8.0`.  
+- Follow-up from roshpr addressed warning + rebase + timeout; marked ready; merged by mbevc1.
+
+**Owned by**  
+Argo Contrib (Chief of Staff coordinated). Cloud-agent assisted implementation on fork.
+
+**Notes / lessons**  
+- Keep AI-assisted PRs **draft** until human review.  
+- Document upstream rationale in values when a default looks “surprising.”  
+- Use the OSS contribution checklist for labels, docs, DCO, draft, CI.
+
+---
+
+<!-- Newest entries go above this line (after ## Entries) and also in the Index table -->
