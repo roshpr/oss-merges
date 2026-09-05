@@ -14,7 +14,6 @@ Living record of **merged** upstream contributions. Newest first.
 
 ---
 
-## Entries
 **Summary**  
 Added an **optional** `livenessProbe` for the Argo CD application-controller Deployment (dynamic cluster distribution) and StatefulSet. Probe is **off by default** so existing installs are unchanged — matching upstream’s decision to remove a hard-coded controller liveness probe because restarting an overloaded controller can be worse than leaving it up ([argoproj/argo-cd#9557](https://github.com/argoproj/argo-cd/pull/9557)). Operators opt in via:
 
@@ -33,11 +32,16 @@ controller:
     - Argo Contrib (Chief of Staff coordinated). Cloud-agent assisted implementation on fork.
    
     - **Notes / lessons**
-    - - Keep AI-assisted PRs **draft** until human review.
+    - - Keep AI-assisted PRs **draft** until human review (Fabrizio / checklist).
       - - Document upstream rationale in values when a default looks “surprising.”
         - - Use the OSS contribution checklist for labels, docs, DCO, draft, CI.
          
-        - <!-- Newest entries go above this line (after ## Entries) and also in the Index table -->
+          - ---
+
+          <!-- Newest entries go above this line (after ## Entries) and also in the Index table -->
+
+## Entries
+
 ### argoproj/argo-helm#4051 — application-controller livenessProbe
 
 | Field | Value |
@@ -50,4 +54,3 @@ controller:
 | **Base / head** | `main` ← `cursor/application-controller-liveness-probe-e424` (`17d94d69`) |
 | **Diff** | 1 commit · +54 / −3 · 5 files |
 | **Status at merge** | CI green; re-approvals after rebase from mkilchhofer + mbevc1 |
-
