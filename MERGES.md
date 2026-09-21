@@ -10,12 +10,45 @@ Living record of **merged** upstream contributions. Newest first.
 
 | Merged (PT) | Repo | PR | Title | Merged by |
 |-------------|------|-----|-------|-----------|
+| 2026-09-18 | vllm-project/aibrix | [#2661](https://github.com/vllm-project/aibrix/pull/2661) | Reject StormService /scale above 1 in Pooled mode | varungup90 |
 | 2026-09-09 | falcosecurity/charts | [#1055](https://github.com/falcosecurity/charts/pull/1055) | fix(falco-talon): restart on rulesOverride change | poiana |
 | 2026-09-04 | argoproj/argo-helm | [#4051](https://github.com/argoproj/argo-helm/pull/4051) | fix(argo-cd): add application-controller livenessProbe | mbevc1 |
 
 ---
 
 ## Entries
+
+### vllm-project/aibrix#2661 — StormService /scale Pooled guard
+
+| Field | Value |
+|-------|--------|
+| **PR** | https://github.com/vllm-project/aibrix/pull/2661 |
+| **Issue** | https://github.com/vllm-project/aibrix/issues/2449 (partial; leftover `/scale` item after #2450 and #2617) |
+| **Repo** | [vllm-project/aibrix](https://github.com/vllm-project/aibrix) |
+| **Author** | [roshpr](https://github.com/roshpr) |
+| **Merged** | 2026-09-19 01:03:18 UTC (2026-09-18 6:03 PM PT) by [varungup90](https://github.com/varungup90) |
+| **Base / head** | `main` ← `roshpr/feat-stormservice-pooled-scale` (`090ddf2e`); squash merge commit [`441af1fa`](https://github.com/vllm-project/aibrix/commit/441af1fa17ae37ba36d542524455ed8772b21350) |
+| **Diff** | 3 commits on PR · +255 / −5 · 7 files |
+| **Status at merge** | Ready for review; CI green (incl. Go Race / Installation E2E / DCO); approved by varungup90; assignee googs1025 |
+
+**Summary** Registered a validating webhook for `stormservices/scale` so declared `mode: Pooled` cannot raise `spec.replicas` above 1 via `kubectl scale` / HPA (create/update already blocked that path). Omitted `spec.mode` is not pinned. Also returns `404` when the parent StormService is `NotFound` during `/scale` admission (instead of `500`). Helm and kubebuilder manifests include `vstormservicescale.kb.io`. Part of #2449; does not close the issue.
+
+**Review arc**
+- Gemini Code Assist asked for `apierrors.IsNotFound` → `404` on missing StormService; fixed and kept on the branch.
+- googs1025 asked to resolve conflicts with `main` (2026-09-11); branch was rebased / updated.
+- Go Race Tests once failed on an unrelated gateway SLO timeout flake (`TestRoutingAlgorithms`); empty-commit retrigger cleared it.
+- varungup90 approved on head `090ddf2` (2026-09-16); merge followed after a contributor ping (roshpr lacks upstream merge rights).
+
+**Owned by**
+AIBrix Contrib. Cloud agents assisted on fork `roshpr/aibrix`; Chief of Staff routed decisions.
+
+**Notes / lessons**
+- Keep AI PRs draft until Rosh reviews (Fabrizio).
+- Author/Committer must be `Rosh Ramadass <roshpr@gmail.com>` with Signed-off-by; never Cursor Agent as primary.
+- GitHub PAT cannot comment/merge upstream aibrix (403); use signed-in browser as `roshpr` for comments; maintainers must merge.
+- On merge: document in https://github.com/roshpr/oss-merges and tell Chief of Staff.
+
+---
 
 ### falcosecurity/charts#1055 — falco-talon rulesOverride restart
 
